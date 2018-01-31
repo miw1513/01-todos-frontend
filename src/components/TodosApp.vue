@@ -30,6 +30,7 @@ export default {
   },
   created () {
     this.setTodos(JSON.parse(localStorage.getItem('todos')))
+    // localStorage.removeItem('todos')
   }
 }
 </script>

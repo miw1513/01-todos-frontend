@@ -23,6 +23,9 @@ export const store = new Vuex.Store({
     REMOVE_TODO (state, index) {
       state.todos.splice(index, 1)
     },
+    SORT_TABLE (state, index) {
+      state.todos.splice(index.newIndex, 0, state.todos.splice(index.oldIndex, 1)[0])
+    },
     REMOVE_COMPLETED_TODOS (state) {
       for (let i = state.todos.length - 1; i >= 0; i--) {
         if (state.todos[i].completed) {
@@ -55,6 +58,10 @@ export const store = new Vuex.Store({
     },
     saveTodos ({state}) {
       localStorage.setItem('todos', JSON.stringify(state.todos))
+    },
+    sortTable ({commit, dispatch}, index) {
+      commit('SORT_TABLE', index)
+      dispatch('saveTodos')
     }
   },
   getters: {
